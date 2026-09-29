@@ -1,28 +1,11 @@
-# Secrets - never commit
-MicScribe/config.h
-
-# Arduino / arduino-cli build output
+# ESP-IDF build output
 build/
 *.bin
 *.elf
 *.map
 
-# Python
-__pycache__/
-*.pyc
-.venv/
-
 .DS_Store
-
 .vscode/
-
-# NovaLive (ESP-IDF)
-NovaLive/main/config.h
-NovaLive/build/
-NovaLive/managed_components/
-NovaLive/sdkconfig
-NovaLive/sdkconfig.old
-NovaLive/dependencies.lock
 
 # NovaLive/display_states (ESP-IDF)
 NovaLive/display_states/build/
