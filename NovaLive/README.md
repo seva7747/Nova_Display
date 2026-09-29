@@ -79,6 +79,12 @@ MAX98357A on 10/11/12. Round 1.28" TFT (GC9A01, 240x240, 4-wire SPI, optional)
 on SCK 13 / SDA 14 / CS 15 / DC 16 / RST 17 (no backlight pin on this board -
 it's tied on-board, always on).
 
+The panel driver and every state's screen live in `components/nova_display`,
+shared between this firmware and `display_states/` - a throwaway app that
+flashes and shows one state at a time (no WiFi/audio/WebRTC involved) for
+iterating on a design against the real hardware. See
+[`display_states/README.md`](display_states/README.md).
+
 1. **Backend** (`Nova/backend/.env`): set a device token and choose whose
    connectors the device uses:
 
@@ -172,6 +178,14 @@ main/net.c         WiFi + NVS settings (same provisioning as MicScribe)
 main/serial.c      JSON-lines protocol (bridge.py / wifi-setup.html compatible)
 main/tasks.c       background-task indicator
 main/led.c         onboard RGB LED (blue / pulsing yellow / green)
+
+components/nova_display/   GC9A01 + LVGL panel driver and every state's screen
+  src/panel.c                 SPI + GC9A01 bring-up
+  src/display_core.c          dispatcher: nova_display_* public API
+  src/orb_template.c          shared placeholder look for the 5 non-clock states
+  src/states/state_*.c        one file per nova_display_state_t (see display_states/)
+
+display_states/   flash-one-state-at-a-time test harness (see its own README)
 ```
 
 WebRTC comes from Espressif's `esp-webrtc-solution`, which is a git submodule

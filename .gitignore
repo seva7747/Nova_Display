@@ -23,3 +23,10 @@ NovaLive/managed_components/
 NovaLive/sdkconfig
 NovaLive/sdkconfig.old
 NovaLive/dependencies.lock
+
+# NovaLive/display_states (ESP-IDF)
+NovaLive/display_states/build/
+NovaLive/display_states/managed_components/
+NovaLive/display_states/sdkconfig
+NovaLive/display_states/sdkconfig.old
+NovaLive/display_states/dependencies.lock

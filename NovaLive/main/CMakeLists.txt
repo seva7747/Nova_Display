@@ -7,4 +7,5 @@ idf_component_register(
   INCLUDE_DIRS "."
   REQUIRES esp_driver_i2s esp_driver_i2c esp_driver_gpio esp_driver_usb_serial_jtag esp_lcd esp_wifi
            esp_netif nvs_flash esp_http_client esp_timer esp-tls mbedtls esp_driver_rmt esp_driver_spi
+  PRIV_REQUIRES nova_display
 )

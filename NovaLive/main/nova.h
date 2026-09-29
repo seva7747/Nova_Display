@@ -90,18 +90,10 @@ const esp_peer_signaling_impl_t *nova_signaling_impl(void);
 typedef enum { ROLE_USER, ROLE_NOVA, ROLE_SYSTEM } nova_role_t;
 typedef enum { TASK_LIGHT_NONE, TASK_LIGHT_RUNNING, TASK_LIGHT_DONE } task_light_t;
 
-// Mirrors main.c's nova_state_t, but only as much as the orb needs to pick
-// its animation: DISP_CLOCK covers both "no network" and "say the wake
-// word" (the clock face itself doesn't distinguish them - display_state()'s
-// label still does, off-screen in the serial log).
-typedef enum {
-    DISP_CLOCK,
-    DISP_CONNECTING,
-    DISP_LIVE_IDLE,
-    DISP_RECORDING,
-    DISP_THINKING,
-    DISP_SPEAKING,
-} nova_display_state_t;
+// nova_display_state_t comes from the nova_display component (see
+// ../components/nova_display) - display_state()'s label still distinguishes
+// "no network" from "say the wake word" off-screen, in the serial log.
+#include "nova_display_types.h"
 
 void display_init(void);
 void display_state(const char *label);

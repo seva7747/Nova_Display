@@ -1,0 +1,34 @@
+menu "Nova Display Test"
+
+    choice NOVA_TEST_STATE
+        prompt "Which state to show"
+        default NOVA_TEST_STATE_CLOCK
+        help
+            Picks one nova_display_state_t to load at boot. Change this,
+            reflash, and look at the physical display; repeat for the next
+            state. This only ever shows one state per flash - it's a test
+            harness, not the real firmware.
+
+        config NOVA_TEST_STATE_CLOCK
+            bool "clock (rest / no network / waiting for wake word)"
+        config NOVA_TEST_STATE_CONNECTING
+            bool "connecting (wake word heard, session coming up)"
+        config NOVA_TEST_STATE_LIVE_IDLE
+            bool "live idle (session up, waiting for you to talk)"
+        config NOVA_TEST_STATE_RECORDING
+            bool "recording (GPT-Live-1 hearing you)"
+        config NOVA_TEST_STATE_THINKING
+            bool "thinking (your turn sent, no answer yet)"
+        config NOVA_TEST_STATE_SPEAKING
+            bool "speaking (Nova's reply playing back)"
+    endchoice
+
+    config NOVA_TEST_TASK_LIGHT
+        int "Task-light overlay (0=none, 1=running, 2=done)"
+        range 0 2
+        default 0
+        help
+            Every state has a background-task indicator overlaid on it.
+            Set this to preview it alongside the chosen state.
+
+endmenu
