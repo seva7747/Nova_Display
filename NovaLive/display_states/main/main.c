@@ -7,6 +7,7 @@
 // The actual screens live in ../components/nova_display (shared with the
 // real NovaLive firmware), so a design edited there shows up here and in
 // the production app identically - this file only picks which one to show.
+#include <sys/time.h>
 #include "esp_log.h"
 #include "nova_display.h"
 
@@ -53,6 +54,13 @@ static nova_display_task_light_t active_task_light(void)
 void app_main(void)
 {
     nova_display_init(&PINS);
+
+    // No WiFi here, so nothing ever sets the clock - it would otherwise count
+    // up from zero. Plant a fixed time so the face shows something plausible
+    // while a design is being looked at. 00:23 UTC, with no TZ set, is 12:23 AM.
+    const struct timeval fixed_time = {.tv_sec = 23 * 60};
+    settimeofday(&fixed_time, NULL);
+
     nova_display_time_synced();               // so the clock state shows a real time, not --:--
     nova_display_set_label("Test label");      // demo text for states that show one
     nova_display_set_task_light(active_task_light());

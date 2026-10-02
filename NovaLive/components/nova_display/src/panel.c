@@ -33,7 +33,9 @@ esp_err_t nova_panel_init(const nova_display_pins_t *pins,
     }
     esp_lcd_panel_reset(*panel);
     esp_lcd_panel_init(*panel);
-    esp_lcd_panel_invert_color(*panel, true);  // this GC9A01 module needs INVON, or colors render as a negative
+    // Orientation is deliberately NOT set here: esp_lvgl_port applies its own
+    // rotation config when the display is added, which overwrites anything set
+    // at this point. display_core.c sets it after that instead.
     esp_lcd_panel_disp_on_off(*panel, true);
     return ESP_OK;
 }

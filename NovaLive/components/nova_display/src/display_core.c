@@ -62,6 +62,10 @@ void nova_display_init(const nova_display_pins_t *pins)
         ESP_LOGW(TAG, "lvgl_port_add_disp failed");
         return;
     }
+    // This module's glass is mirrored on X. It has to be set HERE, not during
+    // panel init: esp_lvgl_port applies its own rotation config when the
+    // display is added, overwriting anything set before this point.
+    esp_lcd_panel_mirror(panel, true, false);
 
     s_states[DISP_CLOCK]      = state_clock_ops();
     s_states[DISP_CONNECTING] = state_connecting_ops();
